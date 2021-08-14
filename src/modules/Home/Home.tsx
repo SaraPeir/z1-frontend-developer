@@ -1,24 +1,31 @@
 import * as React from 'react';
-import {HomeWrapper, HomeDefaultPhotoContainer} from './StyledHome'
-import {TitleH1, Paragraph, PhotoContainer, ButtonPrimary} from '../../styled-components/commons'
+import {HomeWrapper, HomeDefaultPhotoContainer, PhotoContainer} from './StyledHome'
+import {TitleH1, Paragraph, ButtonPrimary} from '../../styled-components/commons'
 import Header from '../../components/Header';
 import text from './text';
 import DefaultImage from './../../default-home.svg'
+import {document1, document2, document3} from '../../mocked-photos-links'
 import './Home.css'
 
-const Home: React.FC<{ loading: boolean, foto?: string }> = ({ loading, children, foto  }) => {
+
+const Home: React.FC<{ loading: boolean, fotoSrc?: string }> = ({ loading, children, fotoSrc  }) => {
     if (loading) {
       return <header>{`Loading...`}</header>
     }
 
     const photo = () => {
-      if(foto) {
-        return <PhotoContainer>Con photo</PhotoContainer>
+      if(fotoSrc) {
+        return (
+          <PhotoContainer>
+            <ButtonPrimary>{text.buttonError}</ButtonPrimary>
+            <img src={document1} alt="licence-foto" className="width100" />
+          </PhotoContainer>
+        ) 
       } 
         return (
           <HomeDefaultPhotoContainer>
             <ButtonPrimary>{text.button}</ButtonPrimary>
-            <img src={DefaultImage} alt="default" />
+            <img src={DefaultImage} alt="default" className="position" />
           </HomeDefaultPhotoContainer>
         ) 
     }

@@ -8,9 +8,12 @@ const App: React.FC<{ loading: boolean }> = ({ loading }) => {
       return <header>{`Loading...`}</header>
     }
 
+    const getMockedPhotoSrc = (randomNumber: number) => `./mocked-fotos/driver-licence_${randomNumber}.jpg`;
+    const fotoSrc = getMockedPhotoSrc(1);
+
       return(
         <div>
-          <Home loading={false} />
+          <Home loading={false} fotoSrc={''} />
         </div>
       ) 
 }
