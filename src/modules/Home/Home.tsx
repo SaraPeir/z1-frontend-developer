@@ -1,8 +1,9 @@
 import * as React from 'react';
 import {HomeWrapper, HomeDefaultPhotoContainer} from './StyledHome'
-import {TitleH1, Paragraph, PhotoContainer} from '../../styled-components/commons'
+import {TitleH1, Paragraph, PhotoContainer, ButtonPrimary} from '../../styled-components/commons'
+import Header from '../../components/Header';
 import text from './text';
-import DefaultPhoto from './../../default-home.svg'
+import DefaultImage from './../../default-home.svg'
 import './Home.css'
 
 const Home: React.FC<{ loading: boolean, foto?: string }> = ({ loading, children, foto  }) => {
@@ -16,17 +17,18 @@ const Home: React.FC<{ loading: boolean, foto?: string }> = ({ loading, children
       } 
         return (
           <HomeDefaultPhotoContainer>
-            <img src={DefaultPhoto} alt="" />
+            <ButtonPrimary>{text.button}</ButtonPrimary>
+            <img src={DefaultImage} alt="default" />
           </HomeDefaultPhotoContainer>
         ) 
     }
 
       return(
         <HomeWrapper>
+          <Header text={text.header} />
           <TitleH1>{text.title}</TitleH1>
           <Paragraph>{text.paragraph}</Paragraph>
           {photo()}
-          
           {children}
         </HomeWrapper>
       ) 
