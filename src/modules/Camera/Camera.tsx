@@ -7,6 +7,8 @@ import Scanner from '../../components/Scanner'
 import Light from '../../light.svg';
 import Correct from '../../correct.svg';
 import { NavLink, useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux'
+import {fetchApiThunk} from '../../redux/slices/fetchApi';
 
 import {document1, document2, document3} from '../../mocked-photos-links'
 import { ThemeProvider } from 'styled-components'
@@ -15,11 +17,17 @@ import './Camera.scss'
 const Camera: React.FC<{ hasPhotoTakenCorrectly: boolean, isLightSufficient: boolean }> = ({ hasPhotoTakenCorrectly, isLightSufficient }) => {
 
   let history = useHistory();
+  const dispatch = useDispatch();
 
     const redirect = () => {
       setAnalysisHasStarted(true)
+      dispatch(fetchApiThunk())
       // history.push('/')
     }
+
+  useSelector((state) => {
+      return console.log(state);
+  })
 
     const [analysisHasStarted, setAnalysisHasStarted] = React.useState(false)
 
@@ -33,6 +41,7 @@ const Camera: React.FC<{ hasPhotoTakenCorrectly: boolean, isLightSufficient: boo
           </CameraContainer>
         ) 
     }
+    console.log('camera rendered')
 
       return(
         <CameraWrapper>
@@ -45,12 +54,12 @@ const Camera: React.FC<{ hasPhotoTakenCorrectly: boolean, isLightSufficient: boo
           <CameraCancelButton>
             <NavLink 
               to="/camera" 
-              activeStyle={{
-              fontWeight: "bold",
-              color: 'white',
-              padding: "20px",
-              margin: "20px"
-              }}
+                activeStyle={{
+                fontWeight: "bold",
+                color: 'white',
+                padding: "20px",
+                margin: "20px"
+                }}
               className="button-link"
             >
               Cancel

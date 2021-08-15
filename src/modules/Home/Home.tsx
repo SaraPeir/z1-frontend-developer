@@ -11,7 +11,6 @@ import '../../styles/button-link.scss';
 import { ThemeProvider } from 'styled-components'
 import { NavLink } from "react-router-dom";
 
-
 const Home: React.FC<{ fotoSrc?: string, isAccepted: boolean }> = ({ fotoSrc , isAccepted }) => {
 
     const renderContent = () => {
