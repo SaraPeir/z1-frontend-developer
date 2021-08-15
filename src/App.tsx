@@ -13,7 +13,7 @@ const App: React.FC<{ loading: boolean }> = ({ loading }) => {
 
       return(
         <div>
-          <Home loading={false} fotoSrc={''} />
+          <Home loading={false} fotoSrc={'f'} />
         </div>
       ) 
 }

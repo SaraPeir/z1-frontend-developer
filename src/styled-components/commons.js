@@ -19,13 +19,25 @@ export const PhotoGenericContainer = styled.div`
     position: relative;
 `
 
-
-
-    // padding: 0;
-    // margin: auto;
-    // border-radius: 12px;
-    // position: relative;
-    // border: 2px solid ${colors.errorColor};
+export const GenericLabel = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    height: 30px;
+    min-width: 102px;
+    border-radius: 12px;
+    padding: 8px;
+    color: ${colors.whiteColor};
+    size: 12px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    z-index: 100;
+    position: absolute;
+    bottom: -23px;
+    right: 24px;
+`
 
 // typos
 export const TitleH1 = styled.h1`
