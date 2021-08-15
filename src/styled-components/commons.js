@@ -39,6 +39,19 @@ export const GenericLabel = styled.div`
     right: 24px;
 `
 
+export const GenericCameraMessage = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 30px;
+    margin: 0 auto;
+    color: ${colors.whiteColor};
+    size: 12px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+`
+
 // typos
 export const TitleH1 = styled.h1`
     font-size: 21px;
@@ -53,6 +66,7 @@ export const Paragraph = styled.p`
     text-align: center;
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
+    margin: 16px 30px;
 `
 
 // buttons
@@ -72,5 +86,16 @@ export const ButtonPrimary = styled.button`
     font-family: 'Roboto', sans-serif;
     font-weight: 700;
     font-size: 16px;
+`
+
+export const NoStyledButton = styled.button`
+    color: ${colors.whiteColor};
+    background: none;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    border: none;
+    margin: auto;
 `
 

@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Home from './modules/Home/index'
+import Camera from './modules/Camera/index'
 
 import './App.css';
 
@@ -13,7 +14,8 @@ const App: React.FC<{ loading: boolean }> = ({ loading }) => {
 
       return(
         <div>
-          <Home isAccepted={true} loading={false} fotoSrc={''} />
+          <Home isAccepted={false} loading={false} fotoSrc={'t'} />
+         {/*  <Camera hasPhotoTakenCorrectly={true} isLightSufficient={true} /> */}
         </div>
       ) 
 }
