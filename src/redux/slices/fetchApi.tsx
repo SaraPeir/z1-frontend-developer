@@ -36,7 +36,17 @@ const initialState = {
 export const fetchApiSlice = createSlice({
   name: 'fetchApiSlice',
   initialState,
-  reducers:{},
+  reducers:{
+    reset: (state) => {
+        return {
+          ...state,
+          value: {
+              ...state.value,
+              apiHasBeenCalled: false
+          }
+        }
+      },
+  },
   extraReducers: {
     [fetchApiThunk.fulfilled]: (state, action)=> { 
         let data;
@@ -58,4 +68,5 @@ export const fetchApiSlice = createSlice({
   },
 })
 
-export default fetchApiSlice.reducer
+export default fetchApiSlice.reducer;
+export const { reset } = fetchApiSlice.actions

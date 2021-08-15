@@ -8,7 +8,7 @@ import Light from '../../light.svg';
 import Correct from '../../correct.svg';
 import { NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
-import {fetchApiThunk} from '../../redux/slices/fetchApi';
+import {fetchApiThunk, reset} from '../../redux/slices/fetchApi';
 import {RootState} from '../../redux/store'
 
 import {document1, document2, document3} from '../../mocked-photos-links'
@@ -32,6 +32,7 @@ const Camera: React.FC<{ hasPhotoBeenTakenCorrectly: boolean, apiHasBeenCalled: 
     if(apiHasBeenCalled) {
       setTimeout(() => {
         history.push('/');
+        dispatch(reset())
       } , 2000)
     }
 

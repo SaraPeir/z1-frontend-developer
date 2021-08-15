@@ -15,5 +15,5 @@ export const HomeDefaultPhotoContainer = styled(PhotoGenericContainer)`
 
 export const PhotoContainer = styled(PhotoGenericContainer)`
     border: ${props =>
-        props.theme.isAccepted ? `2px solid ${colors.acceptedColor}` : `2px solid ${colors.errorColor}`};
+        props.theme.hasPhotoBeenTakenCorrectly ? `2px solid ${colors.acceptedColor}` : `2px solid ${colors.errorColor}`};
 `
