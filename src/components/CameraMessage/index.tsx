@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {GenericCameraMessage} from '../../styled-components/commons';
 
-import './CameraMessage.css'
+import './CameraMessage.scss'
 
 export const CameraMessage: React.FC<{ src:string, text: string }> = ({ src, text }) => {
       return(

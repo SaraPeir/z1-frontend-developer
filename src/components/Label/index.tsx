@@ -2,7 +2,7 @@ import * as React from 'react';
 import {AcceptedLabel, ErrorLabel} from './StyledLabel';
 import Close from '../../close.svg';
 import Approval from '../../approval.svg';
-import './Label.css'
+import './Label.scss'
 
 export const RejectionLabel: React.FC<{ text: string }> = ({ text }) => {
       return(
