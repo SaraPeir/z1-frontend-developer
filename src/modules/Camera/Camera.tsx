@@ -11,36 +11,37 @@ import { useDispatch, useSelector } from 'react-redux'
 import {fetchApiThunk, reset} from '../../redux/slices/fetchApi';
 import {RootState} from '../../redux/store'
 
-import {document1, document2, document3} from '../../mocked-photos-links'
 import { ThemeProvider } from 'styled-components'
 import './Camera.scss'
 
-const Camera: React.FC<{ hasPhotoBeenTakenCorrectly: boolean, apiHasBeenCalled: boolean, isLightSufficient: boolean }> = ({ hasPhotoBeenTakenCorrectly, isLightSufficient, apiHasBeenCalled }) => {
+const Camera: React.FC<{ hasPhotoBeenTakenCorrectly: boolean, apiHasBeenCalled: boolean, isLightSufficient: boolean, fotoSrc?: string }> = ({ hasPhotoBeenTakenCorrectly, isLightSufficient, apiHasBeenCalled, fotoSrc }) => {
 
   let history = useHistory();
   let dispatch = useDispatch();
 
     const redirect = () => {
-      setAnalysisHasStarted(true)
-      setTimeout(() => {
-        dispatch(fetchApiThunk());
-      } , 3000)
-
-      
+      console.log('apiHasBeenCalled redirect', apiHasBeenCalled)
+     // if(!apiHasBeenCalled) {
+        setAnalysisHasStarted(true)
+        setTimeout(() => {
+          dispatch(fetchApiThunk());
+        } , 3000)
+      // }
+      // return
     }
 
     if(apiHasBeenCalled) {
       setTimeout(() => {
         history.push('/');
         dispatch(reset())
-      } , 2000)
+      } , 1000)
     }
 
   const actualState = useSelector((state: RootState) => {
       return state
   })
 
-  console.log('actualState Camera', actualState.fetchApi.value)
+  console.log('actualState Camera', actualState)
 
     const [analysisHasStarted, setAnalysisHasStarted] = React.useState(false)
 
@@ -50,7 +51,7 @@ const Camera: React.FC<{ hasPhotoBeenTakenCorrectly: boolean, apiHasBeenCalled: 
             <CameraContainer onClick={redirect}>
                 <Scanner isBeingAnalyzed={analysisHasStarted} hasPhotoBeenTakenCorrectly={hasPhotoBeenTakenCorrectly} />
                 {analysisHasStarted &&
-                  <img src={document1} alt="licence" className="camera-img rotated" />
+                  <img src={fotoSrc} alt="licence" className="camera-img rotated" />
                 }
             </CameraContainer>
           </ThemeProvider>

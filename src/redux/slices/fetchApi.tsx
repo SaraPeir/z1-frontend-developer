@@ -46,6 +46,15 @@ export const fetchApiSlice = createSlice({
           }
         }
       },
+      resetResult: (state) => {
+        return {
+          ...state,
+          value: {
+              ...state.value,
+              hasPhotoBeenTakenCorrectly: false
+          }
+        }
+      },
   },
   extraReducers: {
     [fetchApiThunk.fulfilled]: (state, action)=> { 
@@ -69,4 +78,4 @@ export const fetchApiSlice = createSlice({
 })
 
 export default fetchApiSlice.reducer;
-export const { reset } = fetchApiSlice.actions
+export const { reset, resetResult } = fetchApiSlice.actions
