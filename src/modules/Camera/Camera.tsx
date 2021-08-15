@@ -9,36 +9,50 @@ import Correct from '../../correct.svg';
 import { NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 import {fetchApiThunk} from '../../redux/slices/fetchApi';
+import {RootState} from '../../redux/store'
 
 import {document1, document2, document3} from '../../mocked-photos-links'
 import { ThemeProvider } from 'styled-components'
 import './Camera.scss'
 
-const Camera: React.FC<{ hasPhotoTakenCorrectly: boolean, isLightSufficient: boolean }> = ({ hasPhotoTakenCorrectly, isLightSufficient }) => {
+const Camera: React.FC<{ hasPhotoBeenTakenCorrectly: boolean, apiHasBeenCalled: boolean, isLightSufficient: boolean }> = ({ hasPhotoBeenTakenCorrectly, isLightSufficient, apiHasBeenCalled }) => {
 
   let history = useHistory();
-  const dispatch = useDispatch();
+  let dispatch = useDispatch();
 
     const redirect = () => {
       setAnalysisHasStarted(true)
-      dispatch(fetchApiThunk())
-      // history.push('/')
+      setTimeout(() => {
+        dispatch(fetchApiThunk());
+      } , 3000)
+
+      
     }
 
-  useSelector((state) => {
-      return console.log(state);
+    if(apiHasBeenCalled) {
+      setTimeout(() => {
+        history.push('/');
+      } , 2000)
+    }
+
+  const actualState = useSelector((state: RootState) => {
+      return state
   })
+
+  console.log('actualState Camera', actualState.fetchApi.value)
 
     const [analysisHasStarted, setAnalysisHasStarted] = React.useState(false)
 
     const renderContent = () => {
         return (
-          <CameraContainer onClick={redirect}>
-              <Scanner isBeingAnalyzed={analysisHasStarted} />
-              {analysisHasStarted &&
-                <img src={document1} alt="licence-foto" className="camera-img rotated" />
-              }
-          </CameraContainer>
+          <ThemeProvider theme={{hasPhotoBeenTakenCorrectly, apiHasBeenCalled}}>
+            <CameraContainer onClick={redirect}>
+                <Scanner isBeingAnalyzed={analysisHasStarted} hasPhotoBeenTakenCorrectly={hasPhotoBeenTakenCorrectly} />
+                {analysisHasStarted &&
+                  <img src={document1} alt="licence" className="camera-img rotated" />
+                }
+            </CameraContainer>
+          </ThemeProvider>
         ) 
     }
     console.log('camera rendered')
@@ -48,8 +62,8 @@ const Camera: React.FC<{ hasPhotoTakenCorrectly: boolean, isLightSufficient: boo
           <TitleH1>{text.title}</TitleH1>
           <Paragraph>{text.paragraph}</Paragraph>
           {renderContent()}
-          {hasPhotoTakenCorrectly &&  <CameraMessageCorrect src={Correct} text={text.takenCorrectly} />}
-          {!isLightSufficient && <CameraMessage src={Light} text={text.message} />}
+          {hasPhotoBeenTakenCorrectly &&  <CameraMessageCorrect src={Correct} text={text.takenCorrectly} />}
+          {!isLightSufficient && !apiHasBeenCalled && <CameraMessage src={Light} text={text.message} />}
           
           <CameraCancelButton>
             <NavLink 

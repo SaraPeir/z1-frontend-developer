@@ -22,18 +22,18 @@ export const fetchApiThunk:any = createAsyncThunk(
 )
 
 type Value = {
-    isValid: boolean,
-    hasBeenCalled: boolean
+    hasPhotoBeenTakenCorrectly: boolean,
+    apiHasBeenCalled: boolean
 };
 
 const initialState = {
     value: {
-        isValid: false,
-        hasBeenCalled: false
+        hasPhotoBeenTakenCorrectly: false,
+        apiHasBeenCalled: false
     } as Value
   };
 
-export const fetchApiSlice:any = createSlice({
+export const fetchApiSlice = createSlice({
   name: 'fetchApiSlice',
   initialState,
   reducers:{},
@@ -49,10 +49,10 @@ export const fetchApiSlice:any = createSlice({
 
         console.log('data', data)
 
-        state.value.hasBeenCalled = true;
+        state.value.apiHasBeenCalled = true;
 
         if(data === 'Approved') {
-            state.value.isValid = true
+            state.value.hasPhotoBeenTakenCorrectly = true
         }
     },
   },

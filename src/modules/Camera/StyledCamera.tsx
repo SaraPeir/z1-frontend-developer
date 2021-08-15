@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import {PhotoGenericContainer, GenericWrapper, NoStyledButton} from '../../styled-components/commons'
 import {colors} from '../../styled-components/variables'
+import { ThemeProvider } from 'styled-components'
 
 export const CameraWrapper = styled(GenericWrapper)`
     background-color: ${colors.cameraBackground};
@@ -14,7 +15,8 @@ export const CameraContainer = styled(PhotoGenericContainer)`
     height: 180px;
     margin-top: 56px;
     background-color: ${colors.whiteColor};
-    border: none;
+    border: ${props =>
+        props.theme.apiHasBeenCalled && (props.theme.hasPhotoBeenTakenCorrectly ? `2px solid ${colors.acceptedColor}` : `2px solid ${colors.errorColor}`)};
 `
 
 export const PhotoContainer = styled(PhotoGenericContainer)`

@@ -11,21 +11,21 @@ import '../../styles/button-link.scss';
 import { ThemeProvider } from 'styled-components'
 import { NavLink } from "react-router-dom";
 
-const Home: React.FC<{ fotoSrc?: string, isAccepted: boolean }> = ({ fotoSrc , isAccepted }) => {
+const Home: React.FC<{ fotoSrc?: string, hasPhotoBeenTakenCorrectly: boolean }> = ({ fotoSrc , hasPhotoBeenTakenCorrectly }) => {
 
     const renderContent = () => {
       if(fotoSrc) {
         return (
-          <ThemeProvider theme={{isAccepted}}>
+          <ThemeProvider theme={{hasPhotoBeenTakenCorrectly}}>
             <PhotoContainer>
                 {/* Document label depending on API output */}
-                {isAccepted === true ? 
+                {hasPhotoBeenTakenCorrectly === true ? 
                   <ApprovalLabel text={text.approved} /> 
                   : <RejectionLabel text={text.rejected} />
                 }
 
                 {/* If document is rejected, camera redirecting button is displayed */}
-                {!isAccepted && 
+                {!hasPhotoBeenTakenCorrectly && 
                   <ButtonPrimary >
                     <NavLink 
                       to="/camera" 

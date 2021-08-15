@@ -4,9 +4,9 @@ import { ThemeProvider } from 'styled-components'
 
 import './Scanner.scss'
 
-export const Scanner: React.FC<{isBeingAnalyzed: boolean}> = ({isBeingAnalyzed}) => {
+export const Scanner: React.FC<{isBeingAnalyzed: boolean, hasPhotoBeenTakenCorrectly: boolean}> = ({isBeingAnalyzed, hasPhotoBeenTakenCorrectly}) => {
       return(
-        <ThemeProvider theme={{isBeingAnalyzed}}>
+        <ThemeProvider theme={{isBeingAnalyzed, hasPhotoBeenTakenCorrectly}}>
             <ScannerLine />
         </ThemeProvider>
       ) 
