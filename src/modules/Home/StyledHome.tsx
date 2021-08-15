@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import {PhotoGenericContainer, GenericWrapper} from '../../styled-components/commons'
 import {colors} from '../../styled-components/variables'
 
-
 export const HomeWrapper = styled(GenericWrapper)`
     background-color: ${colors.whiteColor};
     position: relative;

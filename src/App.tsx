@@ -17,7 +17,7 @@ const App: React.FC<{ loading: boolean }> = ({ loading }) => {
         <div>
           <Switch>
               <Route exact path="/">
-                <Home isAccepted={true} fotoSrc={'o'} />
+                <Home isAccepted={true} fotoSrc={''} />
               </Route>
               <Route exact path="/camera">
                 <Camera hasPhotoTakenCorrectly={true} isLightSufficient={true} />
