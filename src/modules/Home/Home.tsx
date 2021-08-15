@@ -7,9 +7,9 @@ import DefaultImage from './../../default-home.svg'
 import {RejectionLabel, ApprovalLabel} from '../../components/Label'
 import {document1, document2, document3} from '../../mocked-photos-links'
 import './Home.css'
+import { ThemeProvider } from 'styled-components'
 
-
-const Home: React.FC<{ loading: boolean, fotoSrc?: string }> = ({ loading, children, fotoSrc  }) => {
+const Home: React.FC<{ loading: boolean, fotoSrc?: string, isAccepted: boolean }> = ({ loading, children, fotoSrc , isAccepted }) => {
     if (loading) {
       return <header>{`Loading...`}</header>
     }
@@ -17,12 +17,17 @@ const Home: React.FC<{ loading: boolean, fotoSrc?: string }> = ({ loading, child
     const photo = () => {
       if(fotoSrc) {
         return (
-          <PhotoContainer>
-              {/* <RejectionLabel text={text.rejected} /> */}
-              <ApprovalLabel text={text.approved} />
-            <ButtonPrimary>{text.buttonError}</ButtonPrimary>
-            <img src={document1} alt="licence-foto" className="document-img width100" />
-          </PhotoContainer>
+          <ThemeProvider theme={{isAccepted}}>
+            <PhotoContainer>
+                {/* <RejectionLabel text={text.rejected} /> */}
+                {isAccepted === true ? 
+                  <ApprovalLabel text={text.approved} /> :
+                  <RejectionLabel text={text.rejected} />
+                }
+                {!isAccepted && <ButtonPrimary>{text.buttonError}</ButtonPrimary>}
+              <img src={document1} alt="licence-foto" className="document-img width100" />
+            </PhotoContainer>
+          </ThemeProvider>
         ) 
       } 
         return (

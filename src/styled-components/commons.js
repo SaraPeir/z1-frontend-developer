@@ -15,7 +15,7 @@ export const PhotoGenericContainer = styled.div`
     height: 160px;
     padding: 8px 0;
     border-radius: 12px;
-    margin: auto;
+    margin: 24px auto;
     position: relative;
 `
 

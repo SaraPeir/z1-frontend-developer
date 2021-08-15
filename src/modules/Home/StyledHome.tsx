@@ -10,12 +10,11 @@ export const HomeWrapper = styled(GenericWrapper)`
 
 export const HomeDefaultPhotoContainer = styled(PhotoGenericContainer)`
     padding: 18px 18px;
-    margin-top: 24px;
     background-color: ${colors.whiteColor};
     box-shadow: 0 10px 20px -6px rgba(0,0,0,0.15);
 `
 
 export const PhotoContainer = styled(PhotoGenericContainer)`
-    border: 2px solid ${colors.errorColor};
-    margin: 24px auto;
+    border: ${props =>
+        props.theme.isAccepted ? `2px solid ${colors.acceptedColor}` : `2px solid ${colors.errorColor}`};
 `
