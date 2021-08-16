@@ -6,5 +6,12 @@ export const colors = {
     cameraBackground: 'rgba(20,28,38,0.75)'
 }
 
-
+export const typo = {
+    titleFontSize: '21px',
+    paragraphFontSize: '16px',
+    fontFamily: '"Roboto", sans-serif',
+    fontWeightBold: '700',
+    fontWeightRegular: '400',
+    italic: 'italic'
+}
 

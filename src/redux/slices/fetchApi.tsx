@@ -8,7 +8,7 @@ export const fetchApiThunk:any = createAsyncThunk(
             const requestOptions = {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ title: 'React POST Request Example' })
+                body: JSON.stringify({})
             };
 
             const apiUrl = `https://front-exercise.z1.digital/evaluations`

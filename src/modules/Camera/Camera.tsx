@@ -9,6 +9,7 @@ import Correct from '../../icons/correct.svg';
 import { NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 import {fetchApiThunk, reset} from '../../redux/slices/fetchApi';
+import {assignPhoto} from '../../redux/slices/setPhoto';
 import {RootState} from '../../redux/store'
 
 import { ThemeProvider } from 'styled-components'
@@ -30,71 +31,75 @@ const Camera: React.FC<{
 
           const [hasBeenClicked, setHasBeenClicked] = React.useState(false)
 
-            const callAndRedirect = () => {
-              if(!apiHasBeenCalled && !hasBeenClicked) {
-                  setHasBeenClicked(true)
-                  setAnalysisHasStarted(true)
-
-                  setTimeout(() => {
-                    dispatch(fetchApiThunk());
-                  } , 3000)
-                }
-                return
+          const callAndRedirect = () => {
+            if(!fotoSrc) {
+              dispatch(assignPhoto())
             }
 
-            if(apiHasBeenCalled) {
-              setTimeout(() => {
-                history.push('/');
-                dispatch(reset())
-              } , 1000)
-            }
+            if(fotoSrc && !apiHasBeenCalled && !hasBeenClicked) {
+                setHasBeenClicked(true)
+                setAnalysisHasStarted(true)
 
-          const actualState = useSelector((state: RootState) => {
-              return state
-          })
-
-          console.log('actualState Camera', actualState)
-
-          const [analysisHasStarted, setAnalysisHasStarted] = React.useState(false)
-
-          const renderContent = () => {
-              return (
-                <ThemeProvider theme={{hasPhotoBeenTakenCorrectly, apiHasBeenCalled}}>
-                  <CameraContainer onClick={callAndRedirect}>
-                      <Scanner isBeingAnalyzed={analysisHasStarted} hasPhotoBeenTakenCorrectly={hasPhotoBeenTakenCorrectly} />
-                      {analysisHasStarted && fotoSrc &&
-                        <img src={fotoSrc} alt="licence" className="camera-img rotated" />
-                      }
-                  </CameraContainer>
-                </ThemeProvider>
-              ) 
+                setTimeout(() => {
+                  dispatch(fetchApiThunk());
+                } , 3000)
+              }
+              return
           }
-          console.log('camera rendered')
 
-          return(
-            <CameraWrapper>
-              <TitleH1>{text.title}</TitleH1>
-              <Paragraph>{text.paragraph}</Paragraph>
-              {renderContent()}
-              {hasPhotoBeenTakenCorrectly &&  <CameraMessage src={Correct} text={text.takenCorrectly} />}
-              {!isLightSufficient && !apiHasBeenCalled && <CameraMessage src={Light} text={text.message} />}
-              
-              <CameraCancelButton>
-                <NavLink 
-                  to="/camera" 
-                    activeStyle={{
+          if(apiHasBeenCalled) {
+            setTimeout(() => {
+              history.push('/');
+              dispatch(reset())
+            } , 1000)
+          }
+
+        const actualState = useSelector((state: RootState) => {
+            return state
+        })
+
+        console.log('actualState Camera', actualState)
+
+        const [analysisHasStarted, setAnalysisHasStarted] = React.useState(false)
+
+        const renderContent = () => {
+            return (
+              <ThemeProvider theme={{hasPhotoBeenTakenCorrectly, apiHasBeenCalled}}>
+                <CameraContainer onClick={callAndRedirect}>
+                    <Scanner isBeingAnalyzed={analysisHasStarted} hasPhotoBeenTakenCorrectly={hasPhotoBeenTakenCorrectly} />
+                    {analysisHasStarted && fotoSrc &&
+                      <img src={fotoSrc} alt="licence" className="camera-img rotated" />
+                    }
+                </CameraContainer>
+              </ThemeProvider>
+            ) 
+        }
+        console.log('camera rendered')
+
+        return(
+          <CameraWrapper>
+            <TitleH1>{text.title}</TitleH1>
+            <Paragraph>{text.paragraph}</Paragraph>
+            {renderContent()}
+            {hasPhotoBeenTakenCorrectly &&  <CameraMessage src={Correct} text={text.takenCorrectly} />}
+            {!isLightSufficient && !apiHasBeenCalled && <CameraMessage src={Light} text={text.message} />}
+            
+            <CameraCancelButton>
+              <NavLink 
+                to="/camera" 
+                  activeStyle={{
                     fontWeight: "bold",
                     color: 'white',
                     padding: "20px",
                     margin: "20px"
-                    }}
-                  className="button-link"
-                >
-                  Cancel
-                </NavLink>
-              </CameraCancelButton>
-            </CameraWrapper>
-          ) 
+                  }}
+                className="button-link"
+              >
+                Cancel
+              </NavLink>
+            </CameraCancelButton>
+          </CameraWrapper>
+        ) 
 }
 
 export default Camera;

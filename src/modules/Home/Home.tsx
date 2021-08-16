@@ -8,7 +8,7 @@ import {RejectionLabel, ApprovalLabel} from '../../components/Label'
 import { ThemeProvider } from 'styled-components'
 import { NavLink } from "react-router-dom";
 import { useDispatch } from 'react-redux'
-import {assignPhoto, resetPhoto} from '../../redux/slices/setPhoto';
+import {resetPhoto} from '../../redux/slices/setPhoto';
 import {resetResult} from '../../redux/slices/fetchApi';
 
 import './Home.scss'
@@ -16,10 +16,6 @@ import '../../styles/button-link.scss';
 
 const Home: React.FC<{ fotoSrc?: string, hasPhotoBeenTakenCorrectly: boolean }> = ({ fotoSrc , hasPhotoBeenTakenCorrectly }) => {
     let dispatch = useDispatch();
-
-    const getPhoto = () => {
-      dispatch(assignPhoto())
-    } 
 
     const deletePhoto = () => dispatch(resetPhoto())
     const resetApiResult = () => dispatch(resetResult())
@@ -69,7 +65,7 @@ const Home: React.FC<{ fotoSrc?: string, hasPhotoBeenTakenCorrectly: boolean }> 
 
         return (
           <HomeDefaultPhotoContainer>
-            <ButtonPrimary onClick={getPhoto}>
+            <ButtonPrimary>
               <NavLink 
                   to="/camera" 
                   activeStyle={{

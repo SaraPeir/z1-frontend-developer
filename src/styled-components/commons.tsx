@@ -45,13 +45,14 @@ export const GenericCameraMessage = styled.div`
     justify-content: center;
     align-items: center;
     height: 30px;
+    width: 100%;
+    position: absolute;
     margin: 0 auto;
     color: ${colors.whiteColor};
     size: 12px;
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
 `
-
 // typos
 export const TitleH1 = styled.h1`
     font-size: 21px;
