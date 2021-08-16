@@ -6,11 +6,5 @@ export const colors = {
     cameraBackground: 'rgba(20,28,38,0.75)'
 }
 
-export const typos = {
-    regular: '400',
-    italic: 'italic'
-}
-
-
 
 

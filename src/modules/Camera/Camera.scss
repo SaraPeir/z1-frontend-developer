@@ -1,13 +1,12 @@
 .camera-img {
     width: 70%;
     position: absolute;
-
 }
 
 .camera-img.rotated {
-transform: rotate(-5deg);
--ms-transform: translate(-5deg); /* IE 9 */
--webkit-transform: translate(-5deg); /* Safari e Chrome */
+    transform: rotate(-5deg);
+    -ms-transform: translate(-5deg); /* IE 9 */
+    -webkit-transform: translate(-5deg); /* Safari e Chrome */
 }
 
 .position {
