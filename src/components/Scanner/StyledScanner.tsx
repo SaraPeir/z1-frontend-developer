@@ -10,6 +10,6 @@ export const ScannerLine = styled.div`
     top: 5%;
     z-index: 100;
     animation: ${props =>
-        props.theme.isBeingAnalyzed && !props.theme.apiHasBeenCalled && 'example 4s 2'};
+        props.theme.isBeingAnalyzed && !props.theme.apiHasBeenCalled && 'example 2s 1'};
     animation-delay: 1s;
 `

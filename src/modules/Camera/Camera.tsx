@@ -12,6 +12,7 @@ import {fetchApiThunk, reset} from '../../redux/slices/fetchApi';
 import {assignPhoto} from '../../redux/slices/setPhoto';
 import {RootState} from '../../redux/store'
 import {resetResult} from '../../redux/slices/fetchApi';
+import ConditionalNavLink from '../../components/ConditionalNavLink'
 
 import { ThemeProvider } from 'styled-components'
 import './Camera.scss'
@@ -32,23 +33,20 @@ const Camera: React.FC<{
 
           const [hasBeenClicked, setHasBeenClicked] = React.useState(false)
 
+          const newScanningHasStart = apiHasBeenCalled && hasBeenClicked
           const callAndRedirect = () => {
-
-            if(!apiHasBeenCalled && !hasBeenClicked) {
-              if(!fotoSrc || hasPhotoBeenTakenCorrectly) {
+            if(!newScanningHasStart) {
+              if(hasPhotoBeenTakenCorrectly || !fotoSrc) {
                 dispatch(assignPhoto())
               }
+              setHasBeenClicked(true)
+              setAnalysisHasStarted(true)
 
-              
-
-                setHasBeenClicked(true)
-                setAnalysisHasStarted(true)
-
-                setTimeout(() => {
-                  dispatch(resetResult())
-                  dispatch(fetchApiThunk());
-                } , 3000)
-              }
+              setTimeout(() => {
+                dispatch(resetResult())
+                dispatch(fetchApiThunk());
+              }, 2000)
+            }
               return
           }
 
@@ -88,23 +86,14 @@ const Camera: React.FC<{
             {renderContent()}
             {hasPhotoBeenTakenCorrectly && apiHasBeenCalled && <CameraMessage src={Correct} text={text.takenCorrectly} />}
             {!isLightSufficient && !apiHasBeenCalled && <CameraMessage src={Light} text={text.message} />}
-            
-            <CameraCancelButton>
-              <NavLink 
-                to="/" 
-                  activeStyle={{
-                    fontWeight: "bold",
-                    color: 'white',
-                    padding: "20px",
-                    margin: "20px"
-                  }}
-                className="button-link"
-              >
-                Cancel
-              </NavLink>
+
+            <CameraCancelButton onClick={() => !newScanningHasStart && dispatch(reset())}>
+              <ConditionalNavLink condition={!analysisHasStarted} to='/'>
+                  Cancel
+                </ConditionalNavLink>
             </CameraCancelButton>
           </CameraWrapper>
         ) 
 }
 
-export default Camera;
+export default React.memo(Camera);

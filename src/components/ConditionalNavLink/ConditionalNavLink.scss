@@ -1,3 +1,22 @@
+@import '../../styles/variables.scss';
+
 .conditional-nav-link {
     display: contents;
+}
+
+a.conditional-nav-link  {
+    text-decoration: none;
+    color: $white-color;
+}
+
+.conditional-nav-link:hover{
+    color: $white-color;
+}
+
+.conditional-nav-link:active{
+    color: $white-color;
+}
+
+.conditional-nav-link:focus{
+    color: $white-color;
 }
