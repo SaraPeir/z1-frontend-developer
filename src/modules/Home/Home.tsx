@@ -10,6 +10,7 @@ import { NavLink } from "react-router-dom";
 import { useDispatch } from 'react-redux'
 import {resetPhoto} from '../../redux/slices/setPhoto';
 import {resetResult} from '../../redux/slices/fetchApi';
+import ConditionalNavLink from '../../components/ConditionalNavLink'
 
 import './Home.scss'
 import '../../styles/button-link.scss';
@@ -17,22 +18,11 @@ import '../../styles/button-link.scss';
 const Home: React.FC<{ fotoSrc?: string, hasPhotoBeenTakenCorrectly: boolean }> = ({ fotoSrc , hasPhotoBeenTakenCorrectly }) => {
     let dispatch = useDispatch();
 
-    const deletePhoto = () => dispatch(resetPhoto())
-    const resetApiResult = () => dispatch(resetResult())
-
     const renderContent = () => {
       if(fotoSrc) {
         return (
           <ThemeProvider theme={{hasPhotoBeenTakenCorrectly}}>
-            <PhotoContainer
-              onClick={() => {
-                // only if photo has passed correctly, it's possible to click in it to take another picture
-                if(hasPhotoBeenTakenCorrectly) {
-                  deletePhoto()
-                  resetApiResult()
-                }
-              }}
-            >
+            <PhotoContainer>
                 {/* Document label depending on API output */}
                 {hasPhotoBeenTakenCorrectly === true ? 
                   <ApprovalLabel text={text.approved} /> 
@@ -48,7 +38,7 @@ const Home: React.FC<{ fotoSrc?: string, hasPhotoBeenTakenCorrectly: boolean }> 
                       fontWeight: "bold",
                       color: 'white',
                       padding: "20px",
-                      margin: "20px"
+                      margin: "20px",
                       }}
                       className="button-link"
                     >
@@ -56,8 +46,10 @@ const Home: React.FC<{ fotoSrc?: string, hasPhotoBeenTakenCorrectly: boolean }> 
                     </NavLink>
                   </ButtonPrimary>
                 }
+              <ConditionalNavLink condition={hasPhotoBeenTakenCorrectly} to='/camera'>
 
               <img src={fotoSrc} alt="licence-foto" className="document-img width100" />
+              </ConditionalNavLink>
             </PhotoContainer>
           </ThemeProvider>
         ) 

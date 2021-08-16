@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import {fetchApiThunk, reset} from '../../redux/slices/fetchApi';
 import {assignPhoto} from '../../redux/slices/setPhoto';
 import {RootState} from '../../redux/store'
+import {resetResult} from '../../redux/slices/fetchApi';
 
 import { ThemeProvider } from 'styled-components'
 import './Camera.scss'
@@ -32,15 +33,19 @@ const Camera: React.FC<{
           const [hasBeenClicked, setHasBeenClicked] = React.useState(false)
 
           const callAndRedirect = () => {
-            if(!fotoSrc) {
-              dispatch(assignPhoto())
-            }
 
-            if(fotoSrc && !apiHasBeenCalled && !hasBeenClicked) {
+            if(!apiHasBeenCalled && !hasBeenClicked) {
+              if(!fotoSrc || hasPhotoBeenTakenCorrectly) {
+                dispatch(assignPhoto())
+              }
+
+              
+
                 setHasBeenClicked(true)
                 setAnalysisHasStarted(true)
 
                 setTimeout(() => {
+                  dispatch(resetResult())
                   dispatch(fetchApiThunk());
                 } , 3000)
               }
@@ -81,12 +86,12 @@ const Camera: React.FC<{
             <TitleH1>{text.title}</TitleH1>
             <Paragraph>{text.paragraph}</Paragraph>
             {renderContent()}
-            {hasPhotoBeenTakenCorrectly &&  <CameraMessage src={Correct} text={text.takenCorrectly} />}
+            {hasPhotoBeenTakenCorrectly && apiHasBeenCalled && <CameraMessage src={Correct} text={text.takenCorrectly} />}
             {!isLightSufficient && !apiHasBeenCalled && <CameraMessage src={Light} text={text.message} />}
             
             <CameraCancelButton>
               <NavLink 
-                to="/camera" 
+                to="/" 
                   activeStyle={{
                     fontWeight: "bold",
                     color: 'white',
