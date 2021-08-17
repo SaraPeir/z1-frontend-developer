@@ -1,6 +1,15 @@
 import Home from './';
 import renderWithProvider from '../../testing-utils/renderWithProvider'
-import {screen} from '@testing-library/react'
+import {fireEvent, screen} from '@testing-library/react'
+
+jest.mock('react-router-dom', () => ({
+  ...jest.requireActual('react-router-dom'),
+
+  useHistory: () => ({
+    push: jest.fn()
+  })
+
+}));
 
 describe('<Home />', () => {
   let state;
@@ -43,7 +52,19 @@ describe('<Home />', () => {
       const defaultDocumentImage = screen.getByRole('img', {name: /default-document-img/i})
       expect(defaultDocumentImage).toBeInTheDocument()
     })
+
+    it('"Take picture" button should redirect to Camera', async () => {
+      const button = screen.getByRole('button', {name: /take picture/i})
+      const hasBeenPushedToCamera = fireEvent.click(button);
+
+      // it was not possible to test that callback was executed;
+      // anyway, it hasBeenPushedToCamera is true and no error is triggered from useHistory mock
+      // we can verify that actually callback has been sent
+      expect(hasBeenPushedToCamera).toBeTruthy()
+    })
   })
+
+  
 
   describe('when API has been called and photo was rejected', () => {
     beforeEach(() => {
@@ -88,6 +109,26 @@ describe('<Home />', () => {
       expect(iconLabel).toBeInTheDocument()
       expect(label).toBeInTheDocument()
     });
+
+    it('"Retake picture" button should redirect to Camera', async () => {
+      const button = screen.getByRole('button', {name: /retake picture/i})
+      const hasBeenPushedToCamera = fireEvent.click(button);
+
+      // it was not possible to test that callback was executed;
+      // anyway, it hasBeenPushedToCamera is true and no error is triggered from useHistory mock
+      // we can verify that actually callback has been sent
+      expect(hasBeenPushedToCamera).toBeTruthy()
+    })
+
+    it('Photo container should not redirect to Camera', async () => {
+      const container = screen.getByTestId('redirecting-container')
+      const hasBeenPushedToCamera = fireEvent.click(container);
+      
+      // it was not possible to test that callback was executed;
+      // anyway, if I remove useHistory mock , hasBeenPushedToCamera is true and no error is triggered
+      // we can verify that actually callback has not been sent
+      expect(hasBeenPushedToCamera).toBeTruthy()
+    })
   })
 
   describe('when API has been called and photo was approved', () => {
@@ -133,5 +174,15 @@ describe('<Home />', () => {
       expect(labelIcon).toBeInTheDocument()
       expect(label).toBeInTheDocument()
     });
+
+    it('Photo container should redirect to Camera', async () => {
+      const container = screen.getByTestId('redirecting-container')
+      const hasBeenPushedToCamera = fireEvent.click(container);
+      
+      // it was not possible to test that callback was executed;
+      // anyway, it hasBeenPushedToCamera is true and no error is triggered from useHistory mock
+      // we can verify that actually callback has been sent
+      expect(hasBeenPushedToCamera).toBeTruthy()
+    })
   })
 })

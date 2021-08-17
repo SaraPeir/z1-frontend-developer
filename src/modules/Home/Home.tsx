@@ -6,7 +6,7 @@ import text from './text';
 import DefaultImage from './../../icons/default-home.svg'
 import {RejectionLabel, ApprovalLabel} from '../../components/Label'
 import { ThemeProvider } from 'styled-components'
-import { useHistory } from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 
 import './Home.scss';
 import '../../styles/button-link.scss';
@@ -22,7 +22,7 @@ const Home: React.FC<{ fotoSrc?: string, hasPhotoBeenTakenCorrectly: boolean }> 
       if(fotoSrc) {
         return (
           <ThemeProvider theme={{hasPhotoBeenTakenCorrectly}}>
-            <PhotoContainer>
+            <PhotoContainer data-testid="redirecting-container">
                 {/* Document label depending on API output */}
                 {hasPhotoBeenTakenCorrectly ? 
                   <ApprovalLabel text={text.approved} /> 
