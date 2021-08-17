@@ -5,8 +5,6 @@ import {Switch, Route} from "react-router-dom";
 import {useSelector} from 'react-redux';
 import {RootState} from './redux/store';
 
-import './App.css';
-
 const App: React.FC = () => {
     const currentState = useSelector((state: RootState) => {
         return state
