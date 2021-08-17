@@ -1,5 +1,5 @@
-import Home from './';
-import renderWithProvider from '../../testing-utils/renderWithProvider'
+import Home from '.';
+import renderWithProviderAndLocalState from '../../testing-utils/renderWithProvider'
 import {fireEvent, screen} from '@testing-library/react'
 
 jest.mock('react-router-dom', () => ({
@@ -8,7 +8,6 @@ jest.mock('react-router-dom', () => ({
   useHistory: () => ({
     push: jest.fn()
   })
-
 }));
 
 describe('<Home />', () => {
@@ -38,8 +37,8 @@ describe('<Home />', () => {
         fotoSrc: src
       }
 
-      renderWithProvider(
-        <Home props />, { preloadedState: state}
+      renderWithProviderAndLocalState(
+        <Home {...props} />, { preloadedState: state}
       )
     })
 
@@ -87,7 +86,7 @@ describe('<Home />', () => {
         fotoSrc: src
       }
 
-      renderWithProvider(
+      renderWithProviderAndLocalState(
         <Home {...props} />, { preloadedState: state}
       )
     })
@@ -152,7 +151,7 @@ describe('<Home />', () => {
         fotoSrc: src
       }
 
-      renderWithProvider(
+      renderWithProviderAndLocalState(
         <Home {...props} />, { preloadedState: state}
       )
     })

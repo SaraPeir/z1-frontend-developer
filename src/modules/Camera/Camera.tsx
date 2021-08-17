@@ -11,7 +11,6 @@ import { useDispatch } from 'react-redux'
 import {fetchApiThunk, reset} from '../../redux/slices/fetchApi';
 import {assignPhoto} from '../../redux/slices/setPhoto';
 import {resetResult} from '../../redux/slices/fetchApi';
-import ConditionalNavLink from '../../components/ConditionalNavLink'
 import { ThemeProvider } from 'styled-components'
 import './Camera.scss'
 
@@ -26,6 +25,9 @@ const Camera: React.FC<{
           apiHasBeenCalled, 
           fotoSrc 
         }) => {
+          // useHistory was used for routing instead of Link for the warning 
+          // in development and error in unit tests with this error message:
+          //  Invariant failed: You should not use <NavLink> outside a <Router>
           let history = useHistory();
           let dispatch = useDispatch();
 
@@ -65,12 +67,11 @@ const Camera: React.FC<{
         const renderContent = () => {
           return (
             <ThemeProvider theme={{hasPhotoBeenTakenCorrectly, apiHasBeenCalled}}>
-              <CameraContainer onClick={callAndRedirect}>
-                  <Scanner isBeingAnalyzed={analysisHasStarted} hasPhotoBeenTakenCorrectly={hasPhotoBeenTakenCorrectly} />
-
-                  {analysisHasStarted && fotoSrc &&
-                    <img src={fotoSrc} alt="licence" className="camera-img rotated" />
-                  }
+              <CameraContainer onClick={callAndRedirect} data-testid={'camera'}>
+                {!apiHasBeenCalled && <Scanner />}
+                {analysisHasStarted && fotoSrc &&
+                  <img src={fotoSrc} alt="licence-camera" className="camera-img rotated" />
+                }
               </CameraContainer>
             </ThemeProvider>
           ) 
@@ -82,14 +83,19 @@ const Camera: React.FC<{
             <TitleH1>{text.title}</TitleH1>
             <Paragraph>{text.paragraph}</Paragraph>
             {renderContent()}
-            {hasPhotoBeenTakenCorrectly && apiHasBeenCalled && <CameraMessage src={Correct} text={text.takenCorrectly} />}
-            {!isLightSufficient && !apiHasBeenCalled && <CameraMessage src={Light} text={text.message} />}
+            {hasPhotoBeenTakenCorrectly && apiHasBeenCalled && <CameraMessage data-testid={'correct-photo-label'} src={Correct} text={text.takenCorrectly} />}
+            {!isLightSufficient && !apiHasBeenCalled && <CameraMessage data-testid={'low-light-label'} src={Light} text={text.message} />}
 
             {/* Cancel button is inactive only when a new scanning is being done */}
-            <CameraCancelButton onClick={() => !newScanningHasStart && dispatch(reset())}>
-              <ConditionalNavLink condition={!analysisHasStarted} to='/'>
-                  {text.cancel}
-              </ConditionalNavLink>
+            <CameraCancelButton
+              onClick={() => {
+                !newScanningHasStart && dispatch(reset());
+                !analysisHasStarted && history.push('/')
+              }}
+
+              data-testid="cancel-button"
+            >
+                {text.cancel}
             </CameraCancelButton>
           </CameraWrapper>
         ) 
