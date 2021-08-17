@@ -1,0 +1,27 @@
+{
+  "files": {
+    "main.css": "/z1-frontend-developer/static/css/main.101836b9.chunk.css",
+    "main.js": "/z1-frontend-developer/static/js/main.e3b3a050.chunk.js",
+    "main.js.map": "/z1-frontend-developer/static/js/main.e3b3a050.chunk.js.map",
+    "runtime-main.js": "/z1-frontend-developer/static/js/runtime-main.bc673553.js",
+    "runtime-main.js.map": "/z1-frontend-developer/static/js/runtime-main.bc673553.js.map",
+    "static/js/2.d6838038.chunk.js": "/z1-frontend-developer/static/js/2.d6838038.chunk.js",
+    "static/js/2.d6838038.chunk.js.map": "/z1-frontend-developer/static/js/2.d6838038.chunk.js.map",
+    "static/js/3.593a0ff2.chunk.js": "/z1-frontend-developer/static/js/3.593a0ff2.chunk.js",
+    "static/js/3.593a0ff2.chunk.js.map": "/z1-frontend-developer/static/js/3.593a0ff2.chunk.js.map",
+    "index.html": "/z1-frontend-developer/index.html",
+    "static/css/main.101836b9.chunk.css.map": "/z1-frontend-developer/static/css/main.101836b9.chunk.css.map",
+    "static/js/2.d6838038.chunk.js.LICENSE.txt": "/z1-frontend-developer/static/js/2.d6838038.chunk.js.LICENSE.txt",
+    "static/media/approval.fcdb8d5d.svg": "/z1-frontend-developer/static/media/approval.fcdb8d5d.svg",
+    "static/media/correct.23f440dd.svg": "/z1-frontend-developer/static/media/correct.23f440dd.svg",
+    "static/media/default-home.2c9c3412.svg": "/z1-frontend-developer/static/media/default-home.2c9c3412.svg",
+    "static/media/error.cb056a71.svg": "/z1-frontend-developer/static/media/error.cb056a71.svg",
+    "static/media/light.d918208b.svg": "/z1-frontend-developer/static/media/light.d918208b.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.bc673553.js",
+    "static/js/2.d6838038.chunk.js",
+    "static/css/main.101836b9.chunk.css",
+    "static/js/main.e3b3a050.chunk.js"
+  ]
+}
