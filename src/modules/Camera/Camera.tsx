@@ -43,7 +43,6 @@ const Camera: React.FC<{
                 dispatch(assignPhoto())
               }
               
-
               setTimeout(() => {
                 // old results are replaced with the fresh ones from API
                 dispatch(resetResult())

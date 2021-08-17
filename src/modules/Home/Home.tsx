@@ -6,13 +6,18 @@ import text from './text';
 import DefaultImage from './../../icons/default-home.svg'
 import {RejectionLabel, ApprovalLabel} from '../../components/Label'
 import { ThemeProvider } from 'styled-components'
-import RouterNavLink from '../../components/RouterNavLink'
-import ConditionalNavLink from '../../components/ConditionalNavLink'
+import { useHistory } from "react-router-dom";
 
 import './Home.scss';
 import '../../styles/button-link.scss';
 
 const Home: React.FC<{ fotoSrc?: string, hasPhotoBeenTakenCorrectly: boolean }> = ({ fotoSrc , hasPhotoBeenTakenCorrectly }) => {
+
+    // useHistory was used for routing instead of Link for the warning 
+    // in development and error in unit tests with this error message:
+    //  Invariant failed: You should not use <NavLink> outside a <Router>
+    let history = useHistory();
+
     const renderContent = () => {
       if(fotoSrc) {
         return (
@@ -26,17 +31,16 @@ const Home: React.FC<{ fotoSrc?: string, hasPhotoBeenTakenCorrectly: boolean }> 
 
                 {/* If document is rejected, camera redirecting button is displayed */}
                 {!hasPhotoBeenTakenCorrectly && 
-                  <ButtonPrimary >
-                    <RouterNavLink to="/camera">
-                      {text.buttonError}
-                    </RouterNavLink>
+                  <ButtonPrimary data-testid="redirecting-button" onClick={() => history.push('/camera')}>
+                    {text.buttonError}
                   </ButtonPrimary>
                 }
               
               {/* If document is approved, user can go back to camera by clickin on the photo */}
-              <ConditionalNavLink condition={hasPhotoBeenTakenCorrectly} to='/camera'>
-                <img src={fotoSrc} alt="licence-foto" className="document-img width100" />
-              </ConditionalNavLink>
+                <img 
+                  onClick={() => hasPhotoBeenTakenCorrectly && history.push('/camera')} 
+                  src={fotoSrc} alt={`licence-foto ${hasPhotoBeenTakenCorrectly ? 'approved' : 'rejected'}`} className="document-img width100" 
+                />
             </PhotoContainer>
           </ThemeProvider>
         ) 
@@ -44,12 +48,10 @@ const Home: React.FC<{ fotoSrc?: string, hasPhotoBeenTakenCorrectly: boolean }> 
 
         return (
           <HomeDefaultPhotoContainer>
-            <ButtonPrimary>
-              <RouterNavLink to="/camera">
+            <ButtonPrimary data-testid="redirecting-button" onClick={() => history.push('/camera')}>
                 {text.button}
-              </RouterNavLink>
             </ButtonPrimary>
-            <img src={DefaultImage} alt="default" className="document-img position" />
+            <img src={DefaultImage} alt="default-document-img" className="document-img position" />
           </HomeDefaultPhotoContainer>
         ) 
     }
