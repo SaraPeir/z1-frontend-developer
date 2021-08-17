@@ -1,5 +1,6 @@
 export const colors = {
     primaryColor: '#2F0079',
+    scanner: '#00aae4',
     whiteColor: '#ffffff',
     errorColor: '#C00000',
     acceptedColor: '#69CC8B',
