@@ -11,10 +11,10 @@ jest.mock('react-router-dom', () => ({
 }));
 
 const renderComponent = (
-  apiHasBeenCalled, 
-  hasPhotoBeenTakenCorrectly, 
-  src,
-  isLightSufficient,
+      apiHasBeenCalled:boolean, 
+      hasPhotoBeenTakenCorrectly:boolean, 
+      src:boolean,
+      isLightSufficient:boolean,
   ) => {
       const state = {
         fetchApi: {

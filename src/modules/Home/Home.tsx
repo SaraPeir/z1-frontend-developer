@@ -56,8 +56,6 @@ const Home: React.FC<{ fotoSrc?: string, hasPhotoBeenTakenCorrectly: boolean }> 
         ) 
     }
 
-    // spy to understand how many times Home is rendered
-    console.log('home rendered')
     return(
       <HomeWrapper>
         <Header text={text.header} />

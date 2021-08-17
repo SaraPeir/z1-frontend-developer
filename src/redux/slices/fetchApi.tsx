@@ -66,6 +66,7 @@ export const fetchApiSlice = createSlice({
             data = null
         }
 
+        // soy to verify in console that browser is working fine!
         console.log('data', data)
 
         state.value.apiHasBeenCalled = true;

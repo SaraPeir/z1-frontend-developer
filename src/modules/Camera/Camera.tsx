@@ -76,7 +76,6 @@ const Camera: React.FC<{
             </ThemeProvider>
           ) 
         }
-        console.log('camera rendered')
 
         return(
           <CameraWrapper>
