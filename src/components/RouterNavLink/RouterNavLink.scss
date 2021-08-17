@@ -1,0 +1,18 @@
+@import '../../styles/variables.scss';
+
+a.router-nav-link  {
+    text-decoration: none;
+    color: $white-color;
+}
+
+.router-nav-link:hover{
+    color: $white-color;
+}
+
+.router-nav-link:active{
+    color: $white-color;
+}
+
+.router-nav-link:focus{
+    color: $white-color;
+}

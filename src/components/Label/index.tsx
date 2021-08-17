@@ -9,7 +9,7 @@ export const RejectionLabel: React.FC<{ text: string }> = ({ text }) => {
       return(
         <ErrorLabel>
           <div className="img-padding">
-            <img className="img-height" src={Error} />
+            <img className="img-height" src={Error} alt="label" />
           </div>
           <div className="text-padding">{text}</div>
         </ErrorLabel>
@@ -19,7 +19,7 @@ export const RejectionLabel: React.FC<{ text: string }> = ({ text }) => {
 export const ApprovalLabel: React.FC<{ text: string }> = ({ text }) => {
   return(
     <AcceptedLabel>
-      <img src={Approval} />
+      <img src={Approval} alt="label" />
       <div className="text-padding">{text}</div>
     </AcceptedLabel>
   ) 

@@ -6,14 +6,12 @@ import {CameraMessage} from '../../components/CameraMessage'
 import Scanner from '../../components/Scanner'
 import Light from '../../icons/light.svg';
 import Correct from '../../icons/correct.svg';
-import { NavLink, useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from "react-router-dom";
+import { useDispatch } from 'react-redux'
 import {fetchApiThunk, reset} from '../../redux/slices/fetchApi';
 import {assignPhoto} from '../../redux/slices/setPhoto';
-import {RootState} from '../../redux/store'
 import {resetResult} from '../../redux/slices/fetchApi';
 import ConditionalNavLink from '../../components/ConditionalNavLink'
-
 import { ThemeProvider } from 'styled-components'
 import './Camera.scss'
 
@@ -35,7 +33,9 @@ const Camera: React.FC<{
 
           const newScanningHasStart = apiHasBeenCalled && hasBeenClicked
           const callAndRedirect = () => {
-            if(!newScanningHasStart) {
+            if(!hasBeenClicked) {
+              // photo is created in case it does not exist and replaced with a new one
+              // in case the prior was approved
               if(hasPhotoBeenTakenCorrectly || !fotoSrc) {
                 dispatch(assignPhoto())
               }
@@ -43,9 +43,10 @@ const Camera: React.FC<{
               setAnalysisHasStarted(true)
 
               setTimeout(() => {
+                // old results are replaced with the fresh ones from API
                 dispatch(resetResult())
                 dispatch(fetchApiThunk());
-              }, 2000)
+              }, 1000)
             }
               return
           }
@@ -53,29 +54,24 @@ const Camera: React.FC<{
           if(apiHasBeenCalled) {
             setTimeout(() => {
               history.push('/');
+              // apiHasBeenCalled to false to activate again camera when user goes back to camera
               dispatch(reset())
             } , 1000)
           }
 
-        const actualState = useSelector((state: RootState) => {
-            return state
-        })
-
-        console.log('actualState Camera', actualState)
-
         const [analysisHasStarted, setAnalysisHasStarted] = React.useState(false)
 
         const renderContent = () => {
-            return (
-              <ThemeProvider theme={{hasPhotoBeenTakenCorrectly, apiHasBeenCalled}}>
-                <CameraContainer onClick={callAndRedirect}>
-                    <Scanner isBeingAnalyzed={analysisHasStarted} hasPhotoBeenTakenCorrectly={hasPhotoBeenTakenCorrectly} />
-                    {analysisHasStarted && fotoSrc &&
-                      <img src={fotoSrc} alt="licence" className="camera-img rotated" />
-                    }
-                </CameraContainer>
-              </ThemeProvider>
-            ) 
+          return (
+            <ThemeProvider theme={{hasPhotoBeenTakenCorrectly, apiHasBeenCalled}}>
+              <CameraContainer onClick={callAndRedirect}>
+                  <Scanner isBeingAnalyzed={analysisHasStarted} hasPhotoBeenTakenCorrectly={hasPhotoBeenTakenCorrectly} />
+                  {analysisHasStarted && fotoSrc && apiHasBeenCalled &&
+                    <img src={fotoSrc} alt="licence" className="camera-img rotated" />
+                  }
+              </CameraContainer>
+            </ThemeProvider>
+          ) 
         }
         console.log('camera rendered')
 
@@ -87,13 +83,16 @@ const Camera: React.FC<{
             {hasPhotoBeenTakenCorrectly && apiHasBeenCalled && <CameraMessage src={Correct} text={text.takenCorrectly} />}
             {!isLightSufficient && !apiHasBeenCalled && <CameraMessage src={Light} text={text.message} />}
 
+            {/* Cancel button is inactive only when a new scanning is being done */}
             <CameraCancelButton onClick={() => !newScanningHasStart && dispatch(reset())}>
               <ConditionalNavLink condition={!analysisHasStarted} to='/'>
-                  Cancel
-                </ConditionalNavLink>
+                  {text.cancel}
+              </ConditionalNavLink>
             </CameraCancelButton>
           </CameraWrapper>
         ) 
 }
 
+//Camera re-renders everytimes we click on Cancel button.
+// it can be avoided with React.memo
 export default React.memo(Camera);

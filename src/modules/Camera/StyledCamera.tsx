@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import {PhotoGenericContainer, GenericWrapper, NoStyledButton} from '../../styled-components/commons'
 import {colors} from '../../styled-components/variables'
-import { ThemeProvider } from 'styled-components'
 
 export const CameraWrapper = styled(GenericWrapper)`
     background-color: ${colors.cameraBackground};
