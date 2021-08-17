@@ -13,7 +13,7 @@
 
 Por lo restante, el comportamiento es el mismo escrito en los requerimientos[https://www.notion.so/Front-End-Developer-Spanish-f52babcb87bd401aa164033e06dbc419]
 
-## Getting Started with Create React App
+## Detalles tecnicos
 - Desarollo con React, usando Typescript;
 - 2 paginas principales: `Home` y `Camera`. Para pasar de la una a la otra he usado `react-router-dom` (ver [aquí](https://github.com/SaraPeir/z1-frontend-developer/blob/master/src/App.tsx#L16))
 - Gestión del estado global con `Redux` (incluida la llamada a la [API](https://github.com/SaraPeir/z1-frontend-developer/blob/master/src/redux/slices/fetchApi.tsx#L15))
