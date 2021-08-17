@@ -34,19 +34,21 @@ const Camera: React.FC<{
           const newScanningHasStart = apiHasBeenCalled && hasBeenClicked
           const callAndRedirect = () => {
             if(!hasBeenClicked) {
+              setHasBeenClicked(true)
+              setAnalysisHasStarted(true)
+              
               // photo is created in case it does not exist and replaced with a new one
               // in case the prior was approved
               if(hasPhotoBeenTakenCorrectly || !fotoSrc) {
                 dispatch(assignPhoto())
               }
-              setHasBeenClicked(true)
-              setAnalysisHasStarted(true)
+              
 
               setTimeout(() => {
                 // old results are replaced with the fresh ones from API
                 dispatch(resetResult())
                 dispatch(fetchApiThunk());
-              }, 1000)
+              }, 200)
             }
               return
           }
@@ -56,7 +58,7 @@ const Camera: React.FC<{
               history.push('/');
               // apiHasBeenCalled to false to activate again camera when user goes back to camera
               dispatch(reset())
-            } , 1000)
+            } , 1500)
           }
 
         const [analysisHasStarted, setAnalysisHasStarted] = React.useState(false)
@@ -66,7 +68,8 @@ const Camera: React.FC<{
             <ThemeProvider theme={{hasPhotoBeenTakenCorrectly, apiHasBeenCalled}}>
               <CameraContainer onClick={callAndRedirect}>
                   <Scanner isBeingAnalyzed={analysisHasStarted} hasPhotoBeenTakenCorrectly={hasPhotoBeenTakenCorrectly} />
-                  {analysisHasStarted && fotoSrc && apiHasBeenCalled &&
+
+                  {analysisHasStarted && fotoSrc &&
                     <img src={fotoSrc} alt="licence" className="camera-img rotated" />
                   }
               </CameraContainer>
