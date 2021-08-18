@@ -1,5 +1,5 @@
 import Camera from '.';
-import renderWithProviderAndLocalState from '../../testing-utils/renderWithProvider'
+import renderWithProviderAndLocalState from '../../testing-utils/renderWithProviderAndLocalState'
 import {fireEvent, screen} from '@testing-library/react'
 
 jest.mock('react-router-dom', () => ({
